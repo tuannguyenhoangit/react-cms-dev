@@ -74,7 +74,7 @@ const fetchMiddleware = store => next => async action => {
 
     // fetch server (success or fail)
     // returns a Promise
-    return await axios.request({
+    axios.request({
       method,
       url,
       withCredentials: true,
@@ -97,6 +97,7 @@ const fetchMiddleware = store => next => async action => {
         }
       );
   }
+
   return next(action);
 };
 

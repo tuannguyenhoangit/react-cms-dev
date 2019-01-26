@@ -10,11 +10,8 @@ const mapStateToProps = (state) => {
   return {
     // views:
     currentView: state.views.currentView,
-
-    // useAuth:
-    isAuthenticated: state.userAuth.isAuthenticated,
-    isFetching: state.userAuth.isFetching,
-    isLogging: state.userAuth.isLogging
+    // useAuth
+    userAuth: state.userAuth
 
   };
 };

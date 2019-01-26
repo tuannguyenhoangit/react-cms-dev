@@ -41,12 +41,8 @@ const initialState = {
   isAuthenticated: false   // authentication status (token based auth)
 };
 
-export default function (
-  state = initialState,
-  action
-) {
+export default function (state = initialState, action) {
   const currentTime = moment().format();
-
   switch (action.type) {
     case CHECK_IF_USER_IS_AUTHENTICATED:
       return {
@@ -59,7 +55,6 @@ export default function (
         firstname: action.user && action.user.firstname ? action.user.firstname : initialState.firstname,
         lastname: action.user && action.user.lastname ? action.user.lastname : initialState.firstname
       };
-
     case DISCONNECT_USER:
       return {
         ...state,
@@ -81,18 +76,13 @@ export default function (
       };
 
     case RECEIVED_LOG_USER: {
-      console.log(action.payload);
-      const userLogged = action.payload;
-
+      const userLogged = action.payload.data;
       return {
         ...state,
         actionTime: currentTime,
         isAuthenticated: true,
-        token: userLogged.token,
-        id: userLogged.id,
-        login: userLogged.login,
-        firstname: userLogged.firstname,
-        lastname: userLogged.lastname,
+        token: userLogged.id,
+        id: userLogged.userId,
         isLogging: false
       };
     }
@@ -204,9 +194,6 @@ function logUser(login, password) {
       }
     };
 
-    console.log(url, login, password);
-
-
     // fetchMiddleware (does: fetch mock, real fetch, dispatch 3 actions... for a minimum code on action creator!)
     const command = await dispatch({
       type: 'FETCH',
@@ -227,6 +214,7 @@ function logUser(login, password) {
         options
       }
     });
+
     return command;
   };
 

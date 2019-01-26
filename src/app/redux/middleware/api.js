@@ -3,7 +3,8 @@ import {
   getLocationOrigin,
   checkStatus,
   parseJSON
-}                     from '../../services';
+} from '../../services';
+import { Promise } from 'bluebird';
 
 const BASE_URL = getLocationOrigin();
 
@@ -17,10 +18,10 @@ export default store => next => action => {
   }
 
   const { url, types, authenticated, options } = callAPI;
-  const [ requestType, successType, errorType ] = types;
+  const [requestType, successType, errorType] = types;
 
-  store.dispatch({type: requestType});
-  
+  store.dispatch({ type: requestType });
+
   return callApi(url, options, authenticated)
     .then(
       response => next({
@@ -59,7 +60,7 @@ function callApi(url, options = {}, authenticated = false) {
 function addTokenToHeadersOptions(options) {
   const token = localStorage.getItem('id_token') || null;
 
-  if(token) {
+  if (token) {
     if (!optionsHasHeadersProp(options)) {
       // add headers to options :
       return {

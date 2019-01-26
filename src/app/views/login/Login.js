@@ -13,63 +13,26 @@ import {
 import auth from '../../services/auth';
 // #endregion
 
-// #region flow types
-type Props = {
-  // react-router 4:
-  match: any,
-  location: any,
-  history: any,
-
-  // views props:
-  currentView: string,
-  enterLogin: () => void,
-  leaveLogin: () => void,
-
-  // userAuth:
-  isAuthenticated: boolean,
-  isFetching: boolean,
-  isLogging: boolean,
-  disconnectUser: () => any,
-  logUserIfNeeded: () => any
-};
-
-type State = {
-  email: string,
-  password: string
-}
-// #endregion
-
-class Login extends PureComponent<Props, State> {
-  // #region propTypes
-  static propTypes = {
-    // react-router 4:
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-
-    // views props:
-    currentView: PropTypes.string.isRequired,
-    enterLogin: PropTypes.func.isRequired,
-    leaveLogin: PropTypes.func.isRequired,
-
-    // userAuth:
-    isAuthenticated: PropTypes.bool,
-    isFetching: PropTypes.bool,
-    isLogging: PropTypes.bool,
-    disconnectUser: PropTypes.func.isRequired,
-    logUserIfNeeded: PropTypes.func.isRequired
-  };
-  // #endregion
-
-  static defaultProps = {
-    isFetching: false,
-    isLogging: false
+class Login extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
   }
 
   state = {
     email: '',
     password: ''
   };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.currentView === 'Login' && nextProps.userAuth.isAuthenticated) {
+      this.processDashboard(nextProps.userAuth);
+    }
+  }
+
 
   // #region lifecycle methods
   componentDidMount() {
@@ -94,7 +57,7 @@ class Login extends PureComponent<Props, State> {
     } = this.state;
 
     const {
-      isLogging
+      userAuth
     } = this.props;
 
     return (
@@ -164,10 +127,10 @@ class Login extends PureComponent<Props, State> {
                     <Button
                       className="login-button btn-block"
                       bsStyle="primary"
-                      disabled={isLogging}
+                      disabled={userAuth.isLogging}
                       onClick={this.handlesOnLogin}>
                       {
-                        isLogging
+                        userAuth.isLogging
                           ?
                           <span>
                             login in...
@@ -213,9 +176,7 @@ class Login extends PureComponent<Props, State> {
   // #endregion
 
   // #region form inputs change callbacks
-  handlesOnEmailChange = (
-    event: SyntheticEvent<>
-  ) => {
+  handlesOnEmailChange = (event) => {
     if (event) {
       event.preventDefault();
       // should add some validator before setState in real use cases
@@ -223,9 +184,7 @@ class Login extends PureComponent<Props, State> {
     }
   }
 
-  handlesOnPasswordChange = (
-    event: SyntheticEvent<>
-  ) => {
+  handlesOnPasswordChange = (event) => {
     if (event) {
       event.preventDefault();
       // should add some validator before setState in real use cases
@@ -240,65 +199,52 @@ class Login extends PureComponent<Props, State> {
     if (event) {
       event.preventDefault();
     }
-
-    const {
-      history,
-      logUserIfNeeded
-    } = this.props;
-
+    const { logUserIfNeeded } = this.props;
     const {
       email,
       password
     } = this.state;
-
-
-    const response = await logUserIfNeeded(email, password);
-    if (response) {
-      console.log('response: ', response);
-      const { data } = response.payload;
-      const { token } = data;
-      const {
-        login,
-        firstname,
-        lastname,
-        picture,
-        showPicture
-      } = data;
-      const user = {
-        login,
-        firstname,
-        lastname,
-        picture,
-        showPicture
-      };
-      auth.setToken(token);
-      auth.setUserInfo(user);
-
-      history.push({ pathname: '/' }); // back to Home
-    }
-    // } catch (error) {
-    //   /* eslint-disable no-console */
-    //   console.log('login went wrong..., error: ', error);
-    //   /* eslint-enable no-console */
-    // }
+    logUserIfNeeded(email, password);
   }
   // #endregion
 
+  /**
+   * set data for user after login successfully
+   */
+
+  processDashboard = (userAuth) => {
+    const { history } = this.props;
+    const { token } = userAuth;
+    auth.setToken(token);
+    history.push({ pathname: '/' });
+  }
+
   // #region on go back home button click callback
-  goHome = (
-    event: SyntheticEvent<>
-  ) => {
+  goHome = (event) => {
     if (event) {
       event.preventDefault();
     }
-
-    const {
-      history
-    } = this.props;
-
+    const { history } = this.props;
     history.push({ pathname: '/' });
   }
   // #endregion
 }
+
+Login.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+
+  // views props:
+  currentView: PropTypes.string.isRequired,
+  enterLogin: PropTypes.func.isRequired,
+  leaveLogin: PropTypes.func.isRequired,
+
+  // userAuth:
+  userAuth: PropTypes.object,
+  disconnectUser: PropTypes.func.isRequired,
+  logUserIfNeeded: PropTypes.func.isRequired
+};
+
 
 export default Login;
