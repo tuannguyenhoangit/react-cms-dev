@@ -220,14 +220,11 @@ function logUser(login, password) {
 
 }
 
-export function logUserIfNeeded(
-  email,
-  password
-): (...any) => Promise<any> {
+export function logUserIfNeeded(email, password) {
   return async (
-    dispatch: (any) => any,
-    getState: () => boolean
-  ): any => {
+    dispatch,
+    getState
+  ) => {
     if (shouldLogUser(getState())) {
       return await dispatch(logUser(email, password));
     }
@@ -306,7 +303,7 @@ export function fetchUserInfoDataIfNeeded(id = '') {
  * @param {Immutable.Map} state all redux state (immutable state)
  * @returns {boolean} flag
  */
-function shouldFetchUserInfoData(state): boolean {
+function shouldFetchUserInfoData(state) {
   const userInfos = state.userAuth;
   if (userInfos.isFetching) {
     return false;
