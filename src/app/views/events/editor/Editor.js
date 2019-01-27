@@ -49,7 +49,12 @@ class EventEditor extends Component {
           <TableBody>
             <TableRow>
               <TableCol className="col-md-6">
-                <Section title="Event">
+                <Section
+                  onClick={() => {
+
+                  }}
+                  icon="fa fa-check"
+                  title="Event">
                   <Form>
                     <RowInput
                       defaultValue={event.name}
