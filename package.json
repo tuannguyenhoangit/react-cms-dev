@@ -146,6 +146,7 @@
     "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "^0.31.5",
     "react-collapse": "^4.0.3",
+    "react-datetime": "^2.16.3",
     "react-dom": "^16.2.0",
     "react-height": "^3.0.0",
     "react-highlight": "briancappello/react-highlight#react-v16-compiled",

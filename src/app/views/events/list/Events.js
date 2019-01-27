@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import EventTable from './components';
+import EventTable from './table';
+import { Breadcrumb } from '../../../components';
 
 class Events extends Component {
 
@@ -17,10 +18,21 @@ class Events extends Component {
 
 
   render() {
-    const { events } = this.props;
+    const { events, history } = this.props;
     return (
-      <EventTable
-        content={events.data} />
+      <div>
+        <Breadcrumb
+          path={['Dashboard', 'Event']}
+        />
+        <EventTable
+          onItemClick={(row) => {
+            history.push({
+              pathname: '/Dashboard/event/editor',
+              data: row
+            });
+          }}
+          content={events.data} />
+      </div>
     );
   }
 }
@@ -30,6 +42,7 @@ Events.propTypes = {
     enterEventView: PropTypes.func.isRequired,
     leaveEventView: PropTypes.func.isRequired
   }),
-  events: PropTypes.object.isRequired
+  events: PropTypes.object.isRequired,
+  history: PropTypes.object
 };
 export default Events;

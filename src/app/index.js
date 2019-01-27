@@ -15,6 +15,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./style/director-style.css";
 import "./style/highlight/darkula.css";
 import "./style/index.style.scss";
+import "./style/datetime.css";
 // import configureStore from './redux/store/configureStore';
 import Root from "./Root";
 // #endregion

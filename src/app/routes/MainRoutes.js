@@ -25,7 +25,8 @@ import TodoListViewConnected from '../views/todoList';
 import TwitterFeedConnected from '../views/twitterFeed';
 import WorkProgressConnected from '../views/workProgress';
 import ProtectedConnected from '../views/protected';
-import Events from '../views/events';
+import Events from '../views/events/list';
+import EventEditor from '../views/events/editor';
 
 
 export const MainRoutes = () => (
@@ -55,7 +56,8 @@ export const MainRoutes = () => (
 
     {/* private views: need user to be authenticated */}
     <PrivateRoute path="/protected" component={ProtectedConnected} />
-    <Route path="/Dashboard/event" component={Events} />
+    <Route exact path="/Dashboard/event" component={Events} />
+    <Route exact path="/Dashboard/event/editor" component={EventEditor} />
   </Switch>
 );
 
