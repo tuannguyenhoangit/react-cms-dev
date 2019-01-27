@@ -5,6 +5,7 @@ import {
   Table, TableBody, TableCol, Section,
   RowInput, Form, RowText, TableRow, Breadcrumb, RowDatePicker
 } from '../../../components';
+import { routes } from '../../../config/routers';
 
 class EventEditor extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class EventEditor extends Component {
     return (
       <div style={{ height: '100vh' }}>
         <Breadcrumb
+          map={['#', routes.EVENT_LIST]}
           path={['Dashboard', 'Event', 'Edior']}
         />
         <Table>

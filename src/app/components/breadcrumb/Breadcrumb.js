@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Breadcrumb = ({ path }) => (
+const Breadcrumb = ({ path, map }) => (
   <ul className="breadcrumb">
     {
       path.length === 0 &&
@@ -30,7 +30,9 @@ const Breadcrumb = ({ path }) => (
               <li
                 key={viewIndex}
                 className="active">
-                {view}
+                <a href={`#${map[viewIndex]}`}>
+                  {view}
+                </a>
               </li>
             );
           }
@@ -49,7 +51,8 @@ const Breadcrumb = ({ path }) => (
 );
 
 Breadcrumb.propTypes = {
-  path: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  path: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  map: PropTypes.array.isRequired
 };
 
 export default Breadcrumb;

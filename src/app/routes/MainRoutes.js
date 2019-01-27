@@ -27,6 +27,8 @@ import WorkProgressConnected from '../views/workProgress';
 import ProtectedConnected from '../views/protected';
 import Events from '../views/events/list';
 import EventEditor from '../views/events/editor';
+import { routes } from '../config/routers';
+
 
 
 export const MainRoutes = () => (
@@ -56,8 +58,8 @@ export const MainRoutes = () => (
 
     {/* private views: need user to be authenticated */}
     <PrivateRoute path="/protected" component={ProtectedConnected} />
-    <Route exact path="/Dashboard/event" component={Events} />
-    <Route exact path="/Dashboard/event/editor" component={EventEditor} />
+    <Route exact path={routes.EVENT_LIST} component={Events} />
+    <Route exact path={routes.EVENT_EDITOR} component={EventEditor} />
   </Switch>
 );
 
