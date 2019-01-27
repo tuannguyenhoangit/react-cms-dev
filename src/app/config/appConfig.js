@@ -27,6 +27,11 @@ export const appConfig = {
       API: 'api/teamMates'
     }
   },
+  events: {
+    data: {
+      API: 'Event'
+    }
+  },
 
   // userInfos config
   userInfos: {

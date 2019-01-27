@@ -1,13 +1,11 @@
 // @flow weak
 
-import React      from 'react';
-import PropTypes  from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const TableHeader = ({
-  children
-}) => (
+const TableHeader = ({ children }) => (
   <thead>
-    <tr>
+    <tr className="row form-group">
       {children}
     </tr>
   </thead>

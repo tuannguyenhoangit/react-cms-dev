@@ -1,17 +1,17 @@
 // @flow weak
 
-import moment               from 'moment';
-import { appConfig }        from '../../config';
+import moment from 'moment';
+import { appConfig } from '../../config';
 import {
   fetchMockUserInfosData
-}                           from '../../services';
+} from '../../services';
 import {
   getUserInfoData
-}                           from '../../services/API';
+} from '../../services/API';
 
-const REQUEST_USER_INFOS_DATA   = 'REQUEST_USER_INFOS_DATA';
-const RECEIVED_USER_INFOS_DATA  = 'RECEIVED_USER_INFOS_DATA';
-const ERROR_USER_INFOS_DATA     = 'ERROR_USER_INFOS_DATA';
+const REQUEST_USER_INFOS_DATA = 'REQUEST_USER_INFOS_DATA';
+const RECEIVED_USER_INFOS_DATA = 'RECEIVED_USER_INFOS_DATA';
+const ERROR_USER_INFOS_DATA = 'ERROR_USER_INFOS_DATA';
 
 type UserInfoData = {
   login: ?string,
@@ -31,11 +31,11 @@ type UserInfoState = {
 const initialState: UserInfoState = {
   isFetching: false,
   data: {
-    login:            null,
-    firstname:        '',
-    lastname:         '',
-    picture:          null,
-    isAuthenticated:  false
+    login: null,
+    firstname: '',
+    lastname: '',
+    picture: null,
+    isAuthenticated: false
   },
   isConnected: false,
   time: null
@@ -47,31 +47,31 @@ export default function userInfos(
 ) {
   switch (action.type) {
 
-  case 'REQUEST_USER_INFOS_DATA':
-    return {
-      ...state,
-      isFetching: action.isFetching,
-      time:       action.time
-    };
+    case 'REQUEST_USER_INFOS_DATA':
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        time: action.time
+      };
 
-  case 'RECEIVED_USER_INFOS_DATA':
-    return {
-      ...state,
-      isFetching: action.isFetching,
-      data:       { ...action.userInfos.data },
-      isConnected: true, // set user connected when retreiving userInfos
-      time:       action.time
-    };
+    case 'RECEIVED_USER_INFOS_DATA':
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        data: { ...action.userInfos.data },
+        isConnected: true, // set user connected when retreiving userInfos
+        time: action.time
+      };
 
-  case 'ERROR_USER_INFOS_DATA':
-    return {
-      ...state,
-      isFetching: action.isFetching,
-      time:       action.time
-    };
+    case 'ERROR_USER_INFOS_DATA':
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        time: action.time
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 
@@ -89,14 +89,14 @@ export function fetchUserInfoDataIfNeeded() {
 }
 function requestUserInfosData(time: string = moment().format()) {
   return {
-    type:       REQUEST_USER_INFOS_DATA,
+    type: REQUEST_USER_INFOS_DATA,
     isFetching: true,
     time
   };
 }
 function receivedUserInfosData(data, time = moment().format()) {
   return {
-    type:       RECEIVED_USER_INFOS_DATA,
+    type: RECEIVED_USER_INFOS_DATA,
     isFetching: false,
     userInfos: data,
     time
@@ -104,7 +104,7 @@ function receivedUserInfosData(data, time = moment().format()) {
 }
 function errorUserInfosData(time = moment().format()) {
   return {
-    type:       ERROR_USER_INFOS_DATA,
+    type: ERROR_USER_INFOS_DATA,
     isFetching: false,
     time
   };

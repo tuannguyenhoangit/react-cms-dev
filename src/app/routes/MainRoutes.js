@@ -1,30 +1,31 @@
 // @flow
 /* eslint no-process-env:0 */
-import React                        from 'react';
+import React from 'react';
 import {
   Route,
   Switch
-}                                   from 'react-router-dom';
-import PrivateRoute                 from '../components/privateRoute/PrivateRoute';
-import HomeConnected                from '../views/home';
-import AlertConnected               from '../views/alert';
-import BasicElementsConnected       from '../views/basicElements';
-import BasicProgressBarConnected    from '../views/basicProgressBar';
-import BreadcrumbViewConnected      from '../views/breadcrumb';
-import EarningGraphConnected        from '../views/earningGraph';
-import GeneralConnected             from '../views/general';
-import NotificationsConnected       from '../views/notifications';
-import PaginationViewConnected      from '../views/pagination';
-import SimpleTablesConnected        from '../views/simpleTables';
-import StatViewConnected            from '../views/stat';
-import StatsCardConnected           from '../views/statsCard';
-import StripedProgressBarConnected  from '../views/stripedProgressBar';
-import TabPanelConnected            from '../views/tabPanel';
-import TeamMatesViewConnected       from '../views/teamMates';
-import TodoListViewConnected        from '../views/todoList';
-import TwitterFeedConnected         from '../views/twitterFeed';
-import WorkProgressConnected        from '../views/workProgress';
-import ProtectedConnected           from '../views/protected';
+} from 'react-router-dom';
+import PrivateRoute from '../components/privateRoute/PrivateRoute';
+import HomeConnected from '../views/home';
+import AlertConnected from '../views/alert';
+import BasicElementsConnected from '../views/basicElements';
+import BasicProgressBarConnected from '../views/basicProgressBar';
+import BreadcrumbViewConnected from '../views/breadcrumb';
+import EarningGraphConnected from '../views/earningGraph';
+import GeneralConnected from '../views/general';
+import NotificationsConnected from '../views/notifications';
+import PaginationViewConnected from '../views/pagination';
+import SimpleTablesConnected from '../views/simpleTables';
+import StatViewConnected from '../views/stat';
+import StatsCardConnected from '../views/statsCard';
+import StripedProgressBarConnected from '../views/stripedProgressBar';
+import TabPanelConnected from '../views/tabPanel';
+import TeamMatesViewConnected from '../views/teamMates';
+import TodoListViewConnected from '../views/todoList';
+import TwitterFeedConnected from '../views/twitterFeed';
+import WorkProgressConnected from '../views/workProgress';
+import ProtectedConnected from '../views/protected';
+import Events from '../views/events';
 
 
 export const MainRoutes = () => (
@@ -54,7 +55,7 @@ export const MainRoutes = () => (
 
     {/* private views: need user to be authenticated */}
     <PrivateRoute path="/protected" component={ProtectedConnected} />
-
+    <Route path="/Dashboard/event" component={Events} />
   </Switch>
 );
 

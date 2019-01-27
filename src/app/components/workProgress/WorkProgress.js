@@ -1,14 +1,14 @@
 // @flow weak
 
-import React              from 'react';
-import WorkProgressPanel  from './workProgressPanel/WorkProgressPanel';
+import React from 'react';
+import WorkProgressPanel from './workProgressPanel/WorkProgressPanel';
 import {
   Table,
   TableHeader,
   TableBody,
   TableRow,
   TableCol
-}                         from '../../components';
+} from '../../components';
 
 const headers = ['#', 'Project', 'Manager', 'Deadline', 'Status', 'Progress'];
 const content = [

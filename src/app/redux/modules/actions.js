@@ -73,6 +73,9 @@ export {
   leavePagination,
 
   enterLogin,
-  leaveLogin
+  leaveLogin,
+
+  enterEventView,
+  leaveEventView
 
 } from './views';

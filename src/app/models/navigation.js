@@ -1,25 +1,42 @@
 export const navigation = {
-  brand:      'reactDirectorAdmin',
-  leftLinks:  [],
+  brand: 'reactDirectorAdmin',
+  leftLinks: [],
   rightLinks: [
     {
-      label:      'Home',
-      link:       '/',
-      view:       'home',
+      label: 'Home',
+      link: '/',
+      view: 'home',
       isRouteBtn: true
     },
     {
-      label:      'About',
-      link:       '/about',
-      view:       'about',
+      label: 'About',
+      link: '/about',
+      view: 'about',
       isRouteBtn: true
     }
   ],
   sideMenu: [
+    // group menu #0
+    {
+      id: 0,
+      group: ' CMS',
+      menus: [
+        {
+          name: 'Events',
+          linkTo: '/Dashboard/event',
+          faIconName: 'fa-eye'
+        },
+        {
+          name: 'Invited Users',
+          linkTo: '/Dashboard/statsCard',
+          faIconName: 'fa-eye'
+        }
+      ]
+    },
     // group menu #1
     {
       id: 1,
-      group: 'Dashboard  ',
+      group: 'Dashboard',
       menus: [
         {
           name: 'Dashboard preview',
