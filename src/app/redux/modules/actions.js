@@ -1,18 +1,18 @@
 // flow weak
 
 // earningGraph:
-export {fetchEarningGraphDataIfNeeded} from './earningGraph';
+export { fetchEarningGraphDataIfNeeded } from './earningGraph';
 // sideMenu:
 export {
   openSideMenu,
   closeSideMenu,
   toggleSideMenu,
   getSideMenuCollpasedStateFromLocalStorage
-}                                      from './sideMenu';
+} from './sideMenu';
 // teamMates:
-export {fetchTeamMatesDataIfNeeded}    from './teamMates';
+export { fetchTeamMatesDataIfNeeded } from './teamMates';
 // userInfos:
-export {fetchUserInfoDataIfNeeded}     from './userInfos';
+export { fetchUserInfoDataIfNeeded } from './userInfos';
 // views:
 export {
   enterHome,
@@ -70,5 +70,9 @@ export {
   leaveAlert,
 
   enterPagination,
-  leavePagination
-}                                     from './views';
+  leavePagination,
+
+  enterLogin,
+  leaveLogin
+
+} from './views';

@@ -2,8 +2,9 @@
 
 import React, {
   PureComponent
-}                         from 'react';
-import PropTypes          from 'prop-types';
+} from 'react';
+import XDate from 'xdate';
+import PropTypes from 'prop-types';
 import {
   AnimatedView,
   StatsCard,
@@ -13,33 +14,33 @@ import {
   TwitterFeed,
   TodoListDemo,
   TeamMatesDemo
-}                         from '../../components';
+} from '../../components';
 
 class Home extends PureComponent {
-  static propTypes = {
-    earningGraphLabels:   PropTypes.array,
-    earningGraphDatasets: PropTypes.array,
-    teamMatesIsFetching:  PropTypes.bool,
-    teamMates:            PropTypes.arrayOf(
-      PropTypes.shape({
-        picture:      PropTypes.string,
-        firstname:    PropTypes.string,
-        lastname:     PropTypes.string,
-        profile:      PropTypes.string,
-        profileColor: PropTypes.oneOf(['danger', 'warning', 'info', 'success'])
-      })
-    ),
-    actions: PropTypes.shape({
-      enterHome: PropTypes.func,
-      leaveHome: PropTypes.func,
-      fetchEarningGraphDataIfNeeded:  PropTypes.func,
-      fetchTeamMatesDataIfNeeded:     PropTypes.func
-    })
-  };
 
   componentWillMount() {
-    const { actions: { enterHome } } = this.props;
-    enterHome();
+    const currentTime = new XDate().getTime();
+    if (this.getTimeToLive() > currentTime) {
+      const { actions: { enterHome } } = this.props;
+      enterHome();
+    } else {
+      const { actions: { enterLogin } } = this.props;
+      enterLogin();
+      this.goLogin();
+    }
+  }
+
+  getTimeToLive = () => {
+    if (localStorage.getItem('cms@user') !== null) {
+      const userAuth = JSON.parse(localStorage.getItem('cms@user'));
+      return userAuth.created + userAuth.ttl;
+    }
+    return 0;
+  }
+
+  goLogin = () => {
+    const { history } = this.props;
+    history.push({ pathname: '/login' });
   }
 
   componentDidMount() {
@@ -67,11 +68,11 @@ class Home extends PureComponent {
       earningGraphDatasets
     } = this.props;
 
-    return(
+    return (
       <AnimatedView>
         <div
           className="row"
-          style={{marginBottom: '5px'}}>
+          style={{ marginBottom: '5px' }}>
           <div className="col-md-3">
             <StatsCard
               statValue={'3200'}
@@ -143,5 +144,27 @@ class Home extends PureComponent {
     );
   }
 }
+
+Home.propTypes = {
+  earningGraphLabels: PropTypes.array,
+  earningGraphDatasets: PropTypes.array,
+  teamMatesIsFetching: PropTypes.bool,
+  history: PropTypes.object.isRequired,
+  teamMates: PropTypes.arrayOf(
+    PropTypes.shape({
+      picture: PropTypes.string,
+      firstname: PropTypes.string,
+      lastname: PropTypes.string,
+      profile: PropTypes.string,
+      profileColor: PropTypes.oneOf(['danger', 'warning', 'info', 'success'])
+    })
+  ),
+  actions: PropTypes.shape({
+    enterHome: PropTypes.func,
+    leaveHome: PropTypes.func,
+    fetchEarningGraphDataIfNeeded: PropTypes.func,
+    fetchTeamMatesDataIfNeeded: PropTypes.func
+  })
+};
 
 export default Home;

@@ -1,6 +1,7 @@
 // @flow weak
 
 import moment from 'moment';
+import XDate from 'xdate';
 import { appConfig } from '../../config';
 import userInfosMockData from '../../models/userInfosMock';  // from '../../models/userInfosMocks';
 import { getLocationOrigin } from '../../services/fetchTools'; // '../../services/utils';
@@ -36,7 +37,8 @@ const initialState = {
   login: '',
   firstname: '',
   lastname: '',
-
+  ttl: 0,
+  created: 0,
   token: null,
   isAuthenticated: false   // authentication status (token based auth)
 };
@@ -77,8 +79,12 @@ export default function (state = initialState, action) {
 
     case RECEIVED_LOG_USER: {
       const userLogged = action.payload.data;
+      console.log(userLogged);
+
       return {
         ...state,
+        created: new XDate(userLogged.created).getTime(),
+        ttl: userLogged.ttl,
         actionTime: currentTime,
         isAuthenticated: true,
         token: userLogged.id,
