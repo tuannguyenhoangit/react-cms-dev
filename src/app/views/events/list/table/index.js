@@ -9,37 +9,70 @@ import {
   TableBody,
   TableRow,
   TableCol,
-  DefaultPanel
+  Label
 } from '../../../../components';
 
 
-const headers = ['#', 'Name', 'Description', 'Location', 'Start At', 'End At', 'Authors'];
+const headers = ['#', 'Name', 'Description', 'Location', 'Start At', 'End At', 'Authors', 'Status'];
 
-const EventItem = ({ row, id, onClick }) => (
-  <TableRow className="row">
-    <TableCol>
-      <a onClick={() => onClick(row)}>{id + 1}</a>
-    </TableCol>
-    <TableCol className="col-md-2">
-      {row.name}
-    </TableCol>
-    <TableCol className="col-md-4">
-      {row.description}
-    </TableCol>
-    <TableCol className="col-md-2">
-      {row.location}
-    </TableCol>
-    <TableCol className="col-md-1">
-      {new XDate(row.startAt).toString('HH:mm, dd/MM/yyyy')}
-    </TableCol>
-    <TableCol className="col-md-1">
-      {new XDate(row.endAt).toString('HH:mm, dd/MM/yyyy')}
-    </TableCol>
-    <TableCol className="col-md-3">
-      {row.authors.map(name => name)}
-    </TableCol>
-  </TableRow>
-);
+function handleEventStatus(event) {
+  let eventStaus = {
+    type: '',
+    status: ''
+  };
+  const toDate = new XDate().getTime();
+  if (toDate < new XDate(event.startAt).getTime()) {
+    eventStaus = {
+      type: 'warning',
+      status: 'Pending'
+    };
+  }
+  if (new XDate(event.startAt).getTime() < toDate && toDate < new XDate(event.endAt).getTime()) {
+    eventStaus = {
+      type: 'success',
+      status: 'Running'
+    };
+  }
+  if (new XDate(event.endAt).getTime() < toDate) {
+    eventStaus = {
+      type: 'danger',
+      status: 'End'
+    };
+  }
+  return eventStaus;
+}
+
+const EventItem = ({ row, id, onClick }) => {
+  const eventStaus = handleEventStatus(row);
+  return (
+    <TableRow className="row">
+      <TableCol>
+        <a onClick={() => onClick(row)}>{id + 1}</a>
+      </TableCol>
+      <TableCol className="col-md-2">
+        {row.name}
+      </TableCol>
+      <TableCol className="col-md-3">
+        {row.description}
+      </TableCol>
+      <TableCol className="col-md-2">
+        {row.location}
+      </TableCol>
+      <TableCol className="col-md-1">
+        {new XDate(row.startAt).toString('HH:mm, dd/MM/yyyy')}
+      </TableCol>
+      <TableCol className="col-md-1">
+        {new XDate(row.endAt).toString('HH:mm, dd/MM/yyyy')}
+      </TableCol>
+      <TableCol className="col-md-2">
+        {row.authors.map(name => name)}
+      </TableCol>
+      <TableCol className="col-md-1">
+        <Label type={`${eventStaus.type}`} text={eventStaus.status} />
+      </TableCol>
+    </TableRow>
+  );
+};
 
 EventItem.propTypes = {
   id: PropTypes.any,
@@ -48,36 +81,34 @@ EventItem.propTypes = {
 };
 
 const EventTable = ({ content, onItemClick }) => (
-  <DefaultPanel title="Events">
-    <Table>
-      <TableHeader>
-        {
-          headers.map(
-            (header, headerIdx) => {
-              return (
-                <TableCol key={headerIdx}>
-                  {header}
-                </TableCol>
-              );
-            }
-          )
-        }
-      </TableHeader>
-      <TableBody>
-        {
-          content.map(
-            (contentRow, contentRowIdx) =>
-              (<EventItem
-                onClick={onItemClick}
-                id={contentRowIdx}
-                key={contentRowIdx}
-                row={contentRow}
-              />)
-          )
-        }
-      </TableBody>
-    </Table>
-  </DefaultPanel>
+  <Table>
+    <TableHeader>
+      {
+        headers.map(
+          (header, headerIdx) => {
+            return (
+              <TableCol key={headerIdx}>
+                {header}
+              </TableCol>
+            );
+          }
+        )
+      }
+    </TableHeader>
+    <TableBody>
+      {
+        content.map(
+          (contentRow, contentRowIdx) =>
+            (<EventItem
+              onClick={onItemClick}
+              id={contentRowIdx}
+              key={contentRowIdx}
+              row={contentRow}
+            />)
+        )
+      }
+    </TableBody>
+  </Table>
 );
 
 EventTable.propTypes = {

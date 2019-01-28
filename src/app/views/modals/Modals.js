@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Modals = () => {
-  return(
+const Modals = ({ modal }) => {
+  return (
     <section>
       {/* modals cannot be placed anywhere (avoid backdrop or modal placement issues) */}
       <div id="generalViewModals">
@@ -24,23 +25,25 @@ const Modals = () => {
                   ×
                 </button>
                 <h4 className="modal-title">
-                  Modal Tittle
+                  {modal.title}
                 </h4>
               </div>
               <div className="modal-body">
-                Body goes here...
+                {modal.body}
               </div>
               <div className="modal-footer">
                 <button
                   data-dismiss="modal"
                   className="btn btn-default"
                   type="button">
-                  Close
+                  {modal.leftButton}
                 </button>
                 <button
+                  name="modalButtonSave"
+                  data-dismiss="modal"
                   className="btn btn-success"
                   type="button">
-                  Save changes
+                  {modal.rightButton}
                 </button>
               </div>
             </div>
@@ -65,23 +68,25 @@ const Modals = () => {
                   ×
                 </button>
                 <h4 className="modal-title">
-                  Modal Tittle
+                  {modal.title}
                 </h4>
               </div>
               <div className="modal-body">
-                Body goes here...
+                {modal.body}
               </div>
               <div className="modal-footer">
                 <button
                   data-dismiss="modal"
                   className="btn btn-default"
                   type="button">
-                  Close
+                  {modal.leftButton}
                 </button>
                 <button
+                  name="modalButtonDelete"
+                  data-dismiss="modal"
                   className="btn btn-warning"
                   type="button">
-                  Confirm
+                  {modal.rightButton}
                 </button>
               </div>
             </div>
@@ -106,17 +111,19 @@ const Modals = () => {
                   ×
                 </button>
                 <h4 className="modal-title">
-                  Modal Tittle
+                  {modal.title}
                 </h4>
               </div>
               <div className="modal-body">
-                Body goes here...
+                {modal.body}
               </div>
               <div className="modal-footer">
                 <button
+                  name="modalButtonError"
+                  data-dismiss="modal"
                   className="btn btn-danger"
                   type="button">
-                   Ok
+                  {modal.leftButton}
                 </button>
               </div>
             </div>
@@ -186,7 +193,7 @@ const Modals = () => {
                   <div className="checkbox">
                     <label>
                       <input type="checkbox" />
-                       Check me out
+                      Check me out
                     </label>
                   </div>
                   <button
@@ -332,7 +339,7 @@ const Modals = () => {
                   <div className="checkbox">
                     <label>
                       <input type="checkbox" />
-                       Remember me
+                      Remember me
                     </label>
                   </div>
                   <button
@@ -349,6 +356,11 @@ const Modals = () => {
       </div>
     </section>
   );
+};
+
+
+Modals.propTypes = {
+  modal: PropTypes.object
 };
 
 export default Modals;

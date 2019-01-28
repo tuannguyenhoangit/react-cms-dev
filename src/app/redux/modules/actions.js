@@ -76,6 +76,9 @@ export {
   leaveLogin,
 
   enterEventView,
-  leaveEventView
+  leaveEventView,
+
+  enterEventEditorView,
+  leaveEventEditorView
 
 } from './views';

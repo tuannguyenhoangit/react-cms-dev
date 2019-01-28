@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventTable from './table';
-import { Breadcrumb } from '../../../components';
+import { Breadcrumb, Section } from '../../../components';
 
 class Events extends Component {
-
   componentWillMount() {
     const { actions: { enterEventView, fetchEventDataIfNeeded } } = this.props;
     enterEventView();
@@ -16,7 +15,6 @@ class Events extends Component {
     leaveEventView();
   }
 
-
   render() {
     const { events, history } = this.props;
     return (
@@ -24,14 +22,25 @@ class Events extends Component {
         <Breadcrumb
           path={['Dashboard', 'Event']}
         />
-        <EventTable
-          onItemClick={(row) => {
+        <Section
+          onClick={() => {
             history.push({
               pathname: '/Dashboard/event/editor',
-              data: row
+              data: null
             });
           }}
-          content={events.data} />
+          title="Events"
+          icon="fa fa-plus"
+        >
+          <EventTable
+            onItemClick={(row) => {
+              history.push({
+                pathname: '/Dashboard/event/editor',
+                data: row
+              });
+            }}
+            content={events.data} />
+        </Section>
       </div>
     );
   }

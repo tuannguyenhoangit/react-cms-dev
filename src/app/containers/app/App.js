@@ -3,56 +3,56 @@
 // #region imports
 import React, {
   Component
-}                             from 'react';
-import PropTypes              from 'prop-types';
+} from 'react';
+import PropTypes from 'prop-types';
 import {
   Header,
   // Footer,
   AsideLeft,
   AsideRight
-}                             from '../../components';
-import { Modals }             from '../../views';
-import { appConfig }          from '../../config';
-import { navigation }         from '../../models';
-import MainRoutes             from '../../routes/MainRoutes';
-import auth                   from '../../services/auth';
-import UserIMG                from '../../img/user.jpg';
+} from '../../components';
+import { Modals } from '../../views';
+import { appConfig } from '../../config';
+import { navigation } from '../../models';
+import MainRoutes from '../../routes/MainRoutes';
+import auth from '../../services/auth';
+import UserIMG from '../../img/user.jpg';
 // #endregion
 
 
 class App extends Component {
   static propTypes = {
     // react-router 4:
-    match:    PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history:  PropTypes.object.isRequired,
-
+    history: PropTypes.object.isRequired,
+    modal: PropTypes.object,
     sideMenuIsCollapsed: PropTypes.bool,
-    userInfos:  PropTypes.shape({
-      login:       PropTypes.string,
-      firstname:   PropTypes.string,
-      lastname:    PropTypes.string,
-      picture:     PropTypes.string,
+    userInfos: PropTypes.shape({
+      login: PropTypes.string,
+      firstname: PropTypes.string,
+      lastname: PropTypes.string,
+      picture: PropTypes.string,
       showPicture: PropTypes.bool
     }),
     userIsConnected: PropTypes.bool,
-    currentView:     PropTypes.string,
+    currentView: PropTypes.string,
 
     actions: PropTypes.shape({
       enterHome: PropTypes.func,
       leaveHome: PropTypes.func,
       fetchEarningGraphDataIfNeeded: PropTypes.func,
-      fetchUserInfoDataIfNeeded:     PropTypes.func,
-      openSideMenu:   PropTypes.func,
-      closeSideMenu:  PropTypes.func,
+      fetchUserInfoDataIfNeeded: PropTypes.func,
+      openSideMenu: PropTypes.func,
+      closeSideMenu: PropTypes.func,
       toggleSideMenu: PropTypes.func
     })
   };
 
   state = {
-    appName:          appConfig.APP_NAME,
+    appName: appConfig.APP_NAME,
     connectionStatus: appConfig.CONNECTION_STATUS,
-    helloWord:        appConfig.HELLO_WORD
+    helloWord: appConfig.HELLO_WORD
   };
 
   // #region lifecycle methods
@@ -71,7 +71,7 @@ class App extends Component {
   render() {
     const { appName, connectionStatus, helloWord } = this.state;
     const { userInfos, userIsConnected } = this.props;
-    const { sideMenuIsCollapsed, currentView } = this.props;
+    const { sideMenuIsCollapsed, currentView, modal } = this.props;
 
     const userFullName = `${userInfos.firstname} ${userInfos.lastname.toUpperCase()}`;
     return (
@@ -108,7 +108,7 @@ class App extends Component {
         </div>
         {/* <Footer /> */}
         {/* modals cannot be placed anywhere (avoid backdrop or modal placement issues) so all grouped in same component and outside .wrapper*/}
-        <Modals />
+        <Modals modal={modal} />
       </div>
     );
   }
@@ -122,7 +122,7 @@ class App extends Component {
     toggleSideMenu();
   }
 
-  handlesOnLogout = (event: any) => {
+  handlesOnLogout = (event) => {
     if (event) {
       event.preventDefault();
       event.stopPropagation();

@@ -9,6 +9,7 @@ import teamMates from './teamMates';
 import views from './views';
 import userAuth from './userAuth';
 import events from './events';
+import modal from './modal';
 
 export const reducers = {
   earningGraph,
@@ -17,7 +18,8 @@ export const reducers = {
   teamMates,
   views,
   userAuth,
-  events
+  events,
+  modal
 };
 
 export default combineReducers({

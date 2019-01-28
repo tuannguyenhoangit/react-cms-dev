@@ -7130,6 +7130,10 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-flash-message@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-flash-message/-/react-flash-message-1.0.2.tgz#c38a3ee4d8f216014c8ae4236cc2350e2cbfff0a"
+
 react-height@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-height/-/react-height-3.0.0.tgz#fae322f9da64d3e9e25536f26b77c73954261524"

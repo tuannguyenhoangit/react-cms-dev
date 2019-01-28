@@ -213,8 +213,6 @@ class Login extends PureComponent {
    */
 
   processDashboard = (userAuth) => {
-    console.log('userAuth', userAuth);
-
     localStorage.setItem('cms@user', JSON.stringify(userAuth));
     const { history } = this.props;
     const { token } = userAuth;

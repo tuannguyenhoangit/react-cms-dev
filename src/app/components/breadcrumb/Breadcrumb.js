@@ -30,9 +30,12 @@ const Breadcrumb = ({ path, map }) => (
               <li
                 key={viewIndex}
                 className="active">
-                <a href={`#${map[viewIndex]}`}>
-                  {view}
-                </a>
+                {map ?
+                  (
+                    <a href={`#${map[viewIndex]}`}>
+                      {view}
+                    </a>
+                  ) : view}
               </li>
             );
           }
@@ -52,7 +55,7 @@ const Breadcrumb = ({ path, map }) => (
 
 Breadcrumb.propTypes = {
   path: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  map: PropTypes.array.isRequired
+  map: PropTypes.array
 };
 
 export default Breadcrumb;

@@ -30,6 +30,12 @@ export const appConfig = {
   events: {
     data: {
       API: 'Event'
+    },
+    update: {
+      API: 'Event/'
+    },
+    insert: {
+      API: 'Event'
     }
   },
 

@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/modules/actions';
 import * as eventActions from '../../../redux/modules/events';
+import * as modalActions from '../../../redux/modules/modal';
+
 import Editor from './Editor';
 
 const mapStateToProps = (state) => {
@@ -17,9 +19,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(
       {
-        enterEventView: actions.enterEventView,
-        leaveEventView: actions.leaveEventView,
-        ...eventActions
+        enterEventEditorView: actions.enterEventEditorView,
+        leaveEventEditorView: actions.leaveEventEditorView,
+        ...eventActions,
+        ...modalActions
       },
       dispatch)
   };

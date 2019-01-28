@@ -30,7 +30,6 @@ import EventEditor from '../views/events/editor';
 import { routes } from '../config/routers';
 
 
-
 export const MainRoutes = () => (
   <Switch>
     <Route exact path="/" component={HomeConnected} />

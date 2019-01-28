@@ -47,6 +47,8 @@ const ENTER_PROTECTED_VIEW = 'ENTER_PROTECTED_VIEW';
 const LEAVE_PROTECTED_VIEW = 'LEAVE_PROTECTED_VIEW';
 const ENTER_EVENT_VIEW = 'ENTER_EVENT_VIEW';
 const LEAVE_EVENT_VIEW = 'LEAVE_EVENT_VIEW';
+const ENTER_EVENT_EDITOR_VIEW = 'ENTER_EVENT_EDITOR_VIEW';
+const LEAVE_EVENT_EDITOR_VIEW = 'LEAVE_EVENT_EDITOR_VIEW';
 
 const initialState = {
   currentView: 'home',
@@ -78,6 +80,7 @@ export default function views(state = initialState, action) {
     case ENTER_PAGINATION_VIEW:
     case ENTER_PROTECTED_VIEW:
     case ENTER_EVENT_VIEW:
+    case ENTER_EVENT_EDITOR_VIEW:
       // can't enter if you are already inside
       if (state.currentView !== action.currentView) {
         return {
@@ -111,6 +114,7 @@ export default function views(state = initialState, action) {
     case LEAVE_PAGINATION_VIEW:
     case LEAVE_PROTECTED_VIEW:
     case LEAVE_EVENT_VIEW:
+    case LEAVE_EVENT_EDITOR_VIEW:
       // can't leave if you aren't already inside
       if (state.currentView === action.currentView) {
         return {
@@ -520,6 +524,24 @@ export function leaveEventView(time = moment().format()) {
   return {
     type: LEAVE_EVENT_VIEW,
     currentView: 'Event',
+    enterTime: null,
+    leaveTime: time
+  };
+}
+
+export function enterEventEditorView(time = moment().format()) {
+  return {
+    type: ENTER_EVENT_EDITOR_VIEW,
+    currentView: 'EventEditor',
+    enterTime: time,
+    leaveTime: null
+  };
+}
+
+export function leaveEventEditorView(time = moment().format()) {
+  return {
+    type: LEAVE_EVENT_EDITOR_VIEW,
+    currentView: 'EventEditor',
     enterTime: null,
     leaveTime: time
   };

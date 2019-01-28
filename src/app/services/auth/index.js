@@ -2,12 +2,12 @@
 
 import type {
   Storage,
-  TokenKey,
-  UserInfoKey,
-  STORES_TYPES
-}                 from './type';
-import decode     from 'jwt-decode';
-import moment     from 'moment';
+    TokenKey,
+    UserInfoKey,
+    STORES_TYPES
+} from './type';
+import decode from 'jwt-decode';
+import moment from 'moment';
 
 
 const TOKEN_KEY = 'token';
@@ -18,7 +18,7 @@ const APP_PERSIST_STORES_TYPES: Array<STORES_TYPES> = [
   'sessionStorage'
 ];
 
-const parse     = JSON.parse;
+const parse = JSON.parse;
 const stringify = JSON.stringify;
 
 /*
@@ -40,7 +40,7 @@ export const auth = {
    * @returns {string} token value
    */
   getToken(
-    fromStorage: Storage  = APP_PERSIST_STORES_TYPES[0],
+    fromStorage: Storage = APP_PERSIST_STORES_TYPES[0],
     tokenKey: TokenKey = TOKEN_KEY
   ): ?string {
     // localStorage:
@@ -139,7 +139,7 @@ export const auth = {
    * @returns {bool} success/failure flag
    */
   clearToken(
-    storage: Storage  = APP_PERSIST_STORES_TYPES[0],
+    storage: Storage = APP_PERSIST_STORES_TYPES[0],
     tokenKey: TokenKey = TOKEN_KEY
   ): boolean {
     // localStorage:
@@ -174,7 +174,7 @@ export const auth = {
       return new Date(0); // is expired
     }
 
-    const expirationDate = new Date(token.exp*1000);
+    const expirationDate = new Date(token.exp * 1000);
     return expirationDate;
   },
 
@@ -188,7 +188,7 @@ export const auth = {
     encodedToken: any
   ): boolean {
     const expirationDate = this.getTokenExpirationDate(encodedToken);
-    const rightNow       = moment();
+    const rightNow = moment();
     const isExpiredToken = moment(rightNow).isAfter(moment(expirationDate));
 
     return isExpiredToken;
