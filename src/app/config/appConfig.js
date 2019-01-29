@@ -49,6 +49,6 @@ export const appConfig = {
   HELLO_WORD: 'Hello',
 
   // SERVER_API: 'http://localhost:3000/api'
-  SERVER_API: '103.1.237.204:3000/api'
+  SERVER_API: 'http://fordevs.tech:3000/api'
 
 };
