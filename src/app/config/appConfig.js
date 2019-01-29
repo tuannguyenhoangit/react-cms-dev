@@ -48,7 +48,7 @@ export const appConfig = {
 
   HELLO_WORD: 'Hello',
 
-  // eslint-disable-next-line no-process-env
-  SERVER_API: (process.env.NODE_ENV === 'production') ? '103.1.237.204:3000/api' : 'http://localhost:3000/api'
+  // SERVER_API: 'http://localhost:3000/api'
+  SERVER_API: '103.1.237.204:3000/api'
 
 };
