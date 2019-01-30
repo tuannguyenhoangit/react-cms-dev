@@ -36,6 +36,9 @@ export const appConfig = {
     },
     insert: {
       API: 'Event'
+    },
+    delete: {
+      API: 'Event/'
     }
   },
 
