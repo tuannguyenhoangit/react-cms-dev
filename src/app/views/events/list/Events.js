@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventTable from './table';
-import { Breadcrumb, Section } from '../../../components';
+import { Breadcrumb, Section, Pagination } from '../../../components';
 import { deleteEventData } from '../../../services/API/events';
+import { routes } from '../../../config/routers';
 
 class Events extends Component {
   componentWillMount() {
@@ -51,8 +52,16 @@ class Events extends Component {
               });
             }}
             content={events.data} />
+          <div className="text-center">
+            <Pagination
+              route={routes.EVENT_LIST}
+              size="small"
+              numberOfPagination={5}
+            />
+          </div>
         </Section>
-      </div>
+
+      </div >
     );
   }
 }

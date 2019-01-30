@@ -1,14 +1,15 @@
 // @flow weak
 
-import React      from 'react';
-import PropTypes  from 'prop-types';
-import cx         from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const Pagination = ({
   size,
-  numberOfPagination
+  numberOfPagination,
+  route
 }) => {
-  const arrayOfPaginationIndexes = [...Array(numberOfPagination)].map((_, y) =>  y + 1);
+  const arrayOfPaginationIndexes = [...Array(numberOfPagination)].map((_, y) => y + 1);
 
   return (
     <ul
@@ -20,7 +21,7 @@ const Pagination = ({
         })
       }>
       <li>
-        <a href="#">
+        <a href={`#${route}`}>
           «
         </a>
       </li>
@@ -29,7 +30,7 @@ const Pagination = ({
           (index, key) => {
             return (
               <li key={key}>
-                <a href="#">
+                <a href={`#${route}`}>
                   {index}
                 </a>
               </li>
@@ -38,7 +39,7 @@ const Pagination = ({
         )
       }
       <li>
-        <a href="#">
+        <a href={`#${route}`}>
           »
         </a>
       </li>
@@ -47,12 +48,13 @@ const Pagination = ({
 };
 
 Pagination.propTypes = {
-  size:               PropTypes.oneOf(['large', 'default', 'small']),
-  numberOfPagination: PropTypes.number.isRequired
+  size: PropTypes.oneOf(['large', 'default', 'small']),
+  numberOfPagination: PropTypes.number.isRequired,
+  route: PropTypes.string.isRequired
 };
 
 Pagination.defaultProps = {
-  size:               'default',
+  size: 'default',
   numberOfPagination: 5
 };
 

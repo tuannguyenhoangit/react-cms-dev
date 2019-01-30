@@ -79,13 +79,13 @@ export default class EventItem extends Component {
             ? (
               <div style={{ flexDirection: 'row', display: 'flex' }}>
                 <ButtonIcon
-                  onClick={() => this.setState({ editing: false })}
-                  name="fa fa-times"
-                />
-                <ButtonIcon
                   onClick={() => onDelete(row)}
                   className="btn btn-danger btn-xs"
                   name="fa fa-check"
+                />
+                <ButtonIcon
+                  onClick={() => this.setState({ editing: false })}
+                  name="fa fa-times"
                 />
               </div>
             ) : (

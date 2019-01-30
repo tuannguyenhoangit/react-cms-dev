@@ -6,9 +6,11 @@ import {
 } from '../fetchTools';
 import auth from '../auth';
 
+const page = 1;
+const perpage = 20;
 
 export const getEventsData = async () => {
-  const url = `${appConfig.SERVER_API}/${appConfig.events.data.API}`;
+  const url = `${appConfig.SERVER_API}/${appConfig.events.data.API}?filter[limit]=${perpage}&filter[skip]=${perpage * (page - 1)}`;
   const options = { ...defaultOptions };
   return fetch(url, options)
     .then(checkStatus)
