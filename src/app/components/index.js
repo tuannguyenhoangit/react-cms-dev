@@ -66,3 +66,4 @@ export { default as RowInput } from './rowinput';
 export { default as RowText } from './rowtext';
 export { default as RowDatePicker } from './rowDatePicker';
 export { default as Form } from './form';
+export { default as ButtonIcon } from './buttonIcon';

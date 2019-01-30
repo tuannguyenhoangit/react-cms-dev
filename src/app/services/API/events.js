@@ -7,7 +7,7 @@ import {
 import auth from '../auth';
 
 
-export const getEventsData = () => {
+export const getEventsData = async () => {
   const url = `${appConfig.SERVER_API}/${appConfig.events.data.API}`;
   const options = { ...defaultOptions };
   return fetch(url, options)
@@ -17,7 +17,7 @@ export const getEventsData = () => {
     .catch(error => error);
 };
 
-export const patchEventData = (params) => {
+export const patchEventData = async (params) => {
   const url = `${appConfig.SERVER_API}/${appConfig.events.update.API}${params.id}`;
   const options = {
     ...defaultOptions,
@@ -36,9 +36,8 @@ export const patchEventData = (params) => {
     .catch(error => error);
 };
 
-export const postEventData = (params) => {
+export const postEventData = async (params) => {
   const url = `${appConfig.SERVER_API}/${appConfig.events.insert.API}`;
-  console.log(params);
   const options = {
     ...defaultOptions,
     method: 'POST',
@@ -56,3 +55,22 @@ export const postEventData = (params) => {
     .catch(error => error);
 };
 
+
+export const deleteEventData = async (params) => {
+  const url = `${appConfig.SERVER_API}/${appConfig.events.delete.API}${params.id}`;
+  const options = {
+    ...defaultOptions,
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `${auth.getToken()}`
+    },
+    body: JSON.stringify(params)
+  };
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(data => data)
+    .catch(error => error);
+};

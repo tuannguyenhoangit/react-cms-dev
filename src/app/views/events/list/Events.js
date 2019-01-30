@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventTable from './table';
 import { Breadcrumb, Section } from '../../../components';
+import { deleteEventData } from '../../../services/API/events';
 
 class Events extends Component {
   componentWillMount() {
@@ -13,6 +14,15 @@ class Events extends Component {
   componentDidMount() {
     const { actions: { leaveEventView } } = this.props;
     leaveEventView();
+  }
+
+  deleteItem = (row) => {
+    deleteEventData(row).then((response) => {
+      if (response.count) {
+        const { actions: { deleteEventItem } } = this.props;
+        deleteEventItem(row);
+      }
+    });
   }
 
   render() {
@@ -33,6 +43,7 @@ class Events extends Component {
           icon="fa fa-plus"
         >
           <EventTable
+            onItemDelete={this.deleteItem}
             onItemClick={(row) => {
               history.push({
                 pathname: '/Dashboard/event/editor',

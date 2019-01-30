@@ -5,6 +5,7 @@ import { getEventsData, patchEventData, postEventData } from '../../services/API
 
 const REQUEST_EVENT_DATA = 'REQUEST_EVENT_DATA';
 const RECEIVE_EVENT_DATA = 'RECEIVE_EVENT_DATA';
+const DELETE_EVENT_ITEM = 'DELETE_EVENT_ITEM';
 const ERROR_EVENT_DATA = 'ERROR_EVENT_DATA';
 const INSERTED_EVENT = 'INSERTED_EVENT';
 const INSERT_EVENT_ERROR = 'INSERT_EVENT_ERROR';
@@ -41,6 +42,17 @@ export default function events(state = initialState, action) {
         isFetching: action.isFetching,
         data: [...action.data],
         time: action.time
+      };
+    case DELETE_EVENT_ITEM:
+      const { data } = state;
+      data.forEach((row, index) => {
+        if (row.id === action.data.id) {
+          data.splice(index, 1);
+        }
+      });
+      return {
+        ...state,
+        data
       };
     case ERROR_EVENT_DATA:
       return {
@@ -176,6 +188,14 @@ function updateEventError(error, time = moment().format()) {
     isFetching: false,
     time
   };
+}
+
+export function deleteEventItem(data, time = moment().format()) {
+  return dispatch => dispatch({
+    type: DELETE_EVENT_ITEM,
+    data,
+    time
+  });
 }
 
 function fetchEventData() {
